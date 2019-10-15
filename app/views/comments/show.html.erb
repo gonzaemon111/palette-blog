@@ -1,19 +1,17 @@
-<p id="notice"><%= notice %></p>
-
 <p>
   <strong>Blog ID:</strong>
-  <%= @comment.blog.id %>
+  <%= comment.blog.id %>
 </p>
 
 <p>
   <strong>Blog Title:</strong>
-  <%= @comment.blog.title %>
+  <%= comment.blog.title %>
 </p>
 
 <p>
   <strong>Comment Content:</strong>
-  <%= @comment.content %>
+  <%= comment.content %>
 </p>
 
-<%= link_to 'Edit', edit_blog_comment_path(@blog, @comment) %> |
+<%= link_to 'Edit', edit_blog_comment_path(blog, comment) %> |
 <%= link_to 'Back', blog_comments_path %>

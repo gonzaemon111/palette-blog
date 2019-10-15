@@ -1,14 +1,10 @@
-<p id="notice"><%= notice %></p>
-
 <h1>Comments</h1>
 
 <table>
   <thead>
     <tr>
       <th>Blog ID</th>
-      <%# <th> | </th> %>
       <th>Blog Title</th>
-      <%# <th> | </th> %>
       <th>Comment</th>
       <th colspan="4"></th>
     </tr>
@@ -20,9 +16,9 @@
         <td><%= comment.blog_id %></td>
         <td><%= comment.blog.title %></td>
         <td><%= comment.content %></td>
-        <td><%= link_to 'Show', blog_comment_path(@blog, comment) %></td>
-        <td><%= link_to 'Edit', edit_blog_comment_path(@blog, comment) %></td>
-        <td><%= link_to 'Destroy', blog_comment_path(@blog, comment), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', blog_comment_path(blog, comment) %></td>
+        <td><%= link_to 'Edit', edit_blog_comment_path(blog, comment) %></td>
+        <td><%= link_to 'Destroy', blog_comment_path(blog, comment), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
