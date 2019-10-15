@@ -1,63 +1,59 @@
 class CommentsController < ApplicationController
-  before_action :set_blog
-  before_action :set_comment, only: [:show, :edit, :update, :destroy]
 
   def index
-    @comments = @blog.comments
+    @comments = blog.comments
   end
 
-  def show
-  end
+  def show; end
 
   def new
-    @comment = @blog.comments.build
+    @comment = blog.comments.build
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @comment = Comment.new(comment_params)
 
-    respond_to do |format|
-      if @comment.save
-        format.html { redirect_to [@blog, @comment], notice: 'Comment was successfully created.' }
-        format.json { render :show, status: :created, location: @comment }
-      else
-        format.html { render :new }
-        format.json { render json: @comment.errors, status: :unprocessable_entity }
-      end
+    if @comment.save
+      flash[:notice] = 'Comment was successfully created.'
+      redirect_to [blog, @comment]
+    else
+      flash.now[:notice] = 'Failed to create comment.'
+      render :new
     end
   end
 
   def update
-    respond_to do |format|
-      if @comment.update(comment_params)
-        format.html { redirect_to [@blog, @comment], notice: 'Comment was successfully updated.' }
-        format.json { render :show, status: :ok, location: @comment }
-      else
-        format.html { render :edit }
-        format.json { render json: @comment.errors, status: :unprocessable_entity }
-      end
+    if comment.update(comment_params)
+      flash[:notice] = 'Comment was successfully updated.'
+      redirect_to [blog, comment]
+    else
+      flash.now[:notice] = 'Failed to update comment.'
+      render :edit
     end
   end
 
   def destroy
-    @comment.destroy
-    respond_to do |format|
-      format.html { redirect_to blog_comments_path(@blog), notice: 'Comment was successfully destroyed.' }
-      format.json { head :no_content }
+    if comment.destroy
+      flash[:notice] = 'Comment was successfully destroyed.'
+      redirect_to blog_comments_path(blog)
+    else
+      flash[:notice] = 'Failed to delete comment.'
+      redirect_to blog_comments_path(blog)
     end
   end
 
   private
-    def set_comment
-      @comment = Comment.find(params[:id])
+    def comment
+      @comment ||= Comment.find(params[:id])
     end
+    helper_method :comment
 
-    def set_blog
-      @blog = Blog.find(params[:blog_id])
+    def blog
+      @blog ||= Blog.find(params[:blog_id])
     end
+    helper_method :blog
 
     def comment_params
       params.require(:comment).permit(:blog_id, :content)
