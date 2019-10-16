@@ -37,11 +37,10 @@ class CommentsController < ApplicationController
   def destroy
     if comment.destroy
       flash[:notice] = 'Comment was successfully destroyed.'
-      redirect_to blog_comments_path(blog)
     else
       flash[:notice] = 'Failed to delete comment.'
-      redirect_to blog_comments_path(blog)
     end
+    redirect_to blog_comments_path(blog)
   end
 
   private

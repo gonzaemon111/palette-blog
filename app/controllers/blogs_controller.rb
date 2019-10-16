@@ -36,11 +36,10 @@ class BlogsController < ApplicationController
   def destroy
     if blog.destroy
       flash[:notice] = 'Blog was successfully destroyed.'
-      redirect_to blogs_url
     else
       flash[:notice] = 'Failed to delete blog.'
-      redirect_to blogs_path
     end
+    redirect_to blogs_path
   end
 
   private
